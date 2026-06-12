@@ -1,1 +1,2 @@
-@import "tailwindcss";
+/* Global styles — Tailwind is loaded via CDN in Layout.astro */
+html { scroll-behavior: smooth; }
