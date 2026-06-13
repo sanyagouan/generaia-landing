@@ -1,744 +1,474 @@
+---
+// GeneraIA Landing - Honest Design
+// v2 - Sin estadísticas falsas, sin testimonios inventados
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GeneraIA - Tu Asistente de WhatsApp con IA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeneraIA - Asistente WhatsApp con IA para tu negocio</title>
+    <meta name="description" content="Configuro un asistente de WhatsApp con IA para tu negocio en menos de 48 horas. Sin permanencia. Sin setup. 149€/mes." />
+
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400,300&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Satoshi', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        amber: { 500: '#f59e0b' },
+                    },
+                    animation: {
+                        'typewriter': 'typewriter 2s steps(40) 1s forwards',
+                        'blink': 'blink 1s step-end infinite',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                    },
+                    keyframes: {
+                        typewriter: {
+                            to: { width: '100%' },
+                        },
+                        blink: {
+                            '50%': { borderColor: 'transparent' },
+                        },
+                        slideUp: {
+                            from: { opacity: 0, transform: 'translateY(30px)' },
+                            to: { opacity: 1, transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            from: { opacity: 0 },
+                            to: { opacity: 1 },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <style>
         :root {
-            --bg-color: #0a0a0f;
-            --card-bg: #12121a;
-            --border-color: #1e1e2e;
-            --accent-color: #f59e0b;
-            --text-color: #e2e8f0;
-            --subtle-text: #9ca3af;
+            --bg: #0f0e0c;
+            --card: #1a1916;
+            --border: #2a2924;
+            --accent: #f59e0b;
+            --text: #e5e5e5;
+            --muted: #888;
         }
-
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Satoshi', 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden;
         }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-        /* Custom scrollbar for dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-color);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d97706; /* A slightly darker amber */
-        }
-
-        /* Utility classes for background gradients */
-        .bg-gradient-amber-orange {
-            background-image: linear-gradient(to right, var(--accent-color), #ea580c);
-        }
-
-        .text-gradient-amber-orange {
-            background-image: linear-gradient(to right, var(--accent-color), #ea580c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Glassmorphism effect */
-        .glass-card {
-            background-color: rgba(18, 18, 26, 0.7); /* card-bg with transparency */
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-        }
-
-        /* Fade-in on scroll */
-        .fade-in-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-            will-change: opacity, transform;
-        }
-        .fade-in-on-scroll.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Sticky Nav */
-        .sticky-nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: rgba(10, 10, 15, 0.9); /* Opaque background with slight transparency for glass effect */
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* WhatsApp Chat Simulator Styling */
-        .whatsapp-chat-container {
-            background-color: #0a0a0f;
-            border-radius: 1rem;
-            border: 1px solid var(--border-color);
+        .typewriter-line {
+            display: inline;
             overflow: hidden;
-            max-width: 400px;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            border-right: 2px solid var(--accent);
+            width: 0;
+            animation: typewriter 1.5s steps(40) forwards, blink 0.8s step-end infinite;
+        }
+        .typewriter-line:nth-child(1) { animation-delay: 0.5s; }
+        .typewriter-line:nth-child(2) { animation-delay: 2.5s; width: 0; }
+        .typewriter-line:nth-child(3) { animation-delay: 4.5s; width: 0; }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
         }
 
-        .whatsapp-chat-header {
-            background-color: #262d31;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            color: white;
-            font-weight: 600;
+        /* Chat bubble animation */
+        .chat-msg {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: slideUp 0.4s ease-out forwards;
         }
-
-        .whatsapp-chat-header img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 0.75rem;
-            object-fit: cover;
-        }
-
-        .whatsapp-chat-body {
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719142-86dc0f70-74b1-11e7-92a4-658fffdc78be.png'); /* WhatsApp pattern */
-            background-size: cover;
-            padding: 1rem;
-            min-height: 300px;
-            max-height: 450px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .whatsapp-message {
-            max-width: 80%;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            line-height: 1.3;
-        }
-
-        .whatsapp-message.client {
-            background-color: #262d31;
-            align-self: flex-start;
-            color: #e2e8f0;
-        }
-
-        .whatsapp-message.ai {
-            background-color: #0d6d59;
-            align-self: flex-end;
-            color: white;
-        }
-
-        .whatsapp-chat-footer {
-            background-color: #262d31;
-            padding: 0.75rem 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .whatsapp-chat-footer input {
-            flex-grow: 1;
-            background-color: #3b444b;
-            border: none;
-            border-radius: 1.5rem;
-            padding: 0.75rem 1rem;
-            color: white;
-            outline: none;
-        }
-
-        .whatsapp-chat-footer button {
-            background: none;
-            border: none;
-            color: #9ca3af;
-            margin-left: 0.75rem;
-            font-size: 1.5rem;
-        }
-
-        /* Animations */
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent-color) }
-        }
-
-        .typing-animation {
-            overflow: hidden; /* Ensures the content is not revealed until the animation */
-            border-right: .15em solid var(--accent-color); /* The typwriter cursor */
-            white-space: nowrap; /* Keeps the content on a single line */
-            margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-            animation:
-                typing 3.5s steps(40, end),
-                blink-caret .75s step-end infinite;
-            width: 0; /* Starts hidden */
-        }
+        .chat-msg:nth-child(1) { animation-delay: 0.2s; }
+        .chat-msg:nth-child(2) { animation-delay: 0.8s; }
+        .chat-msg:nth-child(3) { animation-delay: 1.4s; }
+        .chat-msg:nth-child(4) { animation-delay: 2.0s; }
+        .chat-msg:nth-child(5) { animation-delay: 2.6s; }
+        .chat-msg:nth-child(6) { animation-delay: 3.2s; }
+        .chat-msg:nth-child(7) { animation-delay: 3.8s; }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Sticky Navigation -->
-    <nav id="navbar" class="sticky-nav w-full py-4 transition-all duration-300">
-        <div class="container mx-auto px-6 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#hero" class="flex items-center text-2xl font-bold text-white">
-                GeneraIA<span class="text-amber-500">.</span>
+<!-- ============================== -->
+<!-- NAV -->
+<!-- ============================== -->
+<nav class="fixed top-0 left-0 w-full z-50 bg-[#0f0e0c]/80 backdrop-blur-md border-b border-[#2a2924]/50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center gap-2">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="12" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                <text x="16" y="22" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Satoshi, sans-serif">G</text>
+                <path d="M28 8 Q32 4 28 0" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.7"/>
+            </svg>
+            <span class="text-lg font-bold tracking-tight">Genera<span class="text-[#f59e0b]">IA</span></span>
+        </a>
+        <div class="flex items-center gap-4 text-sm">
+            <a href="#como-funciona" class="text-[#888] hover:text-[#e5e5e5] transition hidden sm:block">Cómo funciona</a>
+            <a href="#precio" class="text-[#888] hover:text-[#e5e5e5] transition hidden sm:block">Precio</a>
+            <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20GeneraIA" target="_blank" rel="noopener" class="bg-[#f59e0b] text-[#0f0e0c] px-4 py-2 rounded-lg font-medium text-sm hover:brightness-110 transition">Pruébalo gratis</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================== -->
+<!-- HERO -->
+<!-- ============================== -->
+<section class="pt-28 pb-20 px-6 max-w-5xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
+            Tu negocio atiende solo,<br />
+            <span class="text-[#f59e0b]">tú descansas</span>
+        </h1>
+        <p class="text-lg md:text-xl text-[#888] mb-10 max-w-2xl mx-auto leading-relaxed">
+            Configuro un asistente de WhatsApp con IA para tu negocio en menos de 48 horas. Responde clientes, captura leads y agenda citas — sin que tú hagas nada.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="bg-[#f59e0b] text-[#0f0e0c] px-8 py-4 rounded-xl font-bold text-lg hover:brightness-110 transition shadow-lg shadow-[#f59e0b]/20">
+                Pruébalo gratis 30 días →
             </a>
+            <a href="#demo" class="text-[#e5e5e5] px-8 py-4 rounded-xl font-medium text-lg border border-[#2a2924] hover:border-[#f59e0b]/50 transition">
+                Ver cómo funciona
+            </a>
+        </div>
+        <p class="text-sm text-[#888] mt-4">
+            Sin permanencia. Sin setup. Cancela cuando quieras. <strong class="text-[#e5e5e5]">149€/mes.</strong>
+        </p>
+    </div>
+</section>
 
-            <!-- Nav Links (hidden on smaller screens, shown on md and up) -->
-            <div class="hidden md:flex flex-grow justify-center space-x-8">
-                <a href="#como-funciona" class="text-gray-300 hover:text-amber-500 transition-colors">Cómo Funciona</a>
-                <a href="#beneficios" class="text-gray-300 hover:text-amber-500 transition-colors">Beneficios</a>
-                <a href="#precios" class="text-gray-300 hover:text-amber-500 transition-colors">Precios</a>
-                <a href="https://blog.generaia.org" target="_blank" class="text-gray-300 hover:text-amber-500 transition-colors">Blog</a>
+<!-- ============================== -->
+<!-- CÓMO FUNCIONA -->
+<!-- ============================== -->
+<section id="como-funciona" class="py-20 px-6 max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Yo me encargo de todo</h2>
+    <p class="text-[#888] text-center mb-16 max-w-xl mx-auto">Sin apps, sin configuraciones técnicas. Tú solo hablas conmigo.</p>
+
+    <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl p-8 text-center">
+            <div class="w-12 h-12 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/20 flex items-center justify-center mx-auto mb-6">
+                <span class="text-[#f59e0b] font-bold text-xl">1</span>
             </div>
-
-            <!-- CTA Button -->
-            <div class="flex items-center">
-                <a href="https://demo.generaia.org" target="_blank" class="px-6 py-2 rounded-full font-semibold text-white bg-gradient-amber-orange hover:opacity-90 transition-opacity whitespace-nowrap">
-                    Acceder Dashboard
-                </a>
+            <h3 class="text-xl font-bold mb-3">Me cuentas tu negocio (15 min)</h3>
+            <p class="text-[#888] leading-relaxed">Una llamada rápida. Me explicas qué preguntas te hacen siempre, cómo quieres responder, qué necesitas automatizar.</p>
+        </div>
+        <div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl p-8 text-center">
+            <div class="w-12 h-12 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/20 flex items-center justify-center mx-auto mb-6">
+                <span class="text-[#f59e0b] font-bold text-xl">2</span>
             </div>
+            <h3 class="text-xl font-bold mb-3">Configuro tu asistente (48h)</h3>
+            <p class="text-[#888] leading-relaxed">Entreno la IA con la información de tu negocio. Tono, respuestas, flujos. Tú no tocas nada.</p>
+        </div>
+        <div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl p-8 text-center">
+            <div class="w-12 h-12 rounded-full bg-[#f59e0b]/10 border border-[#f59e0b]/20 flex items-center justify-center mx-auto mb-6">
+                <span class="text-[#f59e0b] font-bold text-xl">3</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Tu WhatsApp atiende solo</h3>
+            <p class="text-[#888] leading-relaxed">Desde el día 3, cada mensaje que llega a tu WhatsApp lo gestiona la IA. Tú solo ves los leads en tu panel.</p>
+        </div>
+    </div>
+</section>
 
-            <!-- Mobile Menu Button (Hamburger) -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-300 hover:text-amber-500 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4"></path>
-                    </svg>
-                </button>
+<!-- ============================== -->
+<!-- DEMO INTERACTIVA ANIMADA -->
+<!-- ============================== -->
+<section id="demo" class="py-20 px-6 bg-[#1a1916]/50 border-y border-[#2a2924]/50">
+    <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Prueba el asistente ahora mismo</h2>
+        <p class="text-[#888] text-center mb-12 max-w-xl mx-auto">Esto es exactamente lo que verían tus clientes al escribirte.</p>
+
+        <!-- WhatsApp Mockup -->
+        <div class="bg-[#0a0a09] rounded-2xl border border-[#2a2924] max-w-md mx-auto overflow-hidden shadow-xl shadow-black/40">
+            <!-- Header -->
+            <div class="bg-[#1a1916] px-4 py-3 flex items-center gap-3 border-b border-[#2a2924]">
+                <div class="w-8 h-8 rounded-full bg-[#f59e0b]/20 flex items-center justify-center text-xs font-bold text-[#f59e0b]">G</div>
+                <div>
+                    <p class="font-medium text-sm">Asistente GeneraIA</p>
+                    <p class="text-xs text-green-500">● en línea</p>
+                </div>
+            </div>
+            <!-- Messages -->
+            <div class="p-4 space-y-3 min-h-[380px]">
+                <div class="chat-msg flex">
+                    <div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[85%]">
+                        <p class="text-sm">Hola, ¿tenéis mesa para esta noche?</p>
+                    </div>
+                </div>
+                <div class="chat-msg flex justify-end">
+                    <div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+                        <p class="text-sm">¡Hola! Claro 😊 ¿Para cuántas personas y a qué hora?</p>
+                    </div>
+                </div>
+                <div class="chat-msg flex">
+                    <div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[85%]">
+                        <p class="text-sm">Para 4, sobre las 21h</p>
+                    </div>
+                </div>
+                <div class="chat-msg flex justify-end">
+                    <div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+                        <p class="text-sm">Perfecto, tenemos disponibilidad. ¿Me das tu nombre y un teléfono de contacto para confirmar la reserva?</p>
+                    </div>
+                </div>
+                <div class="chat-msg flex">
+                    <div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[85%]">
+                        <p class="text-sm">Soy Pedro, 612 345 678</p>
+                    </div>
+                </div>
+                <div class="chat-msg flex justify-end">
+                    <div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%]">
+                        <p class="text-sm">¡Reserva confirmada, Pedro! Te esperamos esta noche a las 21h. ¿Alguna alergia o preferencia que debamos saber?</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Mobile Menu (hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 border-t border-gray-800 py-4">
-            <div class="flex flex-col items-center space-y-4">
-                <a href="#como-funciona" class="block text-gray-300 hover:text-amber-500 transition-colors">Cómo Funciona</a>
-                <a href="#beneficios" class="block text-gray-300 hover:text-amber-500 transition-colors">Beneficios</a>
-                <a href="#precios" class="block text-gray-300 hover:text-amber-500 transition-colors">Precios</a>
-                <a href="https://blog.generaia.org" target="_blank" class="block text-gray-300 hover:text-amber-500 transition-colors">Blog</a>
+        <div class="text-center mt-8">
+            <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="inline-block bg-[#f59e0b] text-[#0f0e0c] px-8 py-4 rounded-xl font-bold text-lg hover:brightness-110 transition shadow-lg shadow-[#f59e0b]/10">
+                Quiero esto para mi negocio →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================== -->
+<!-- CASOS DE USO -->
+<!-- ============================== -->
+<section class="py-20 px-6 max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Para cualquier negocio</h2>
+    <p class="text-[#888] text-center mb-12 max-w-xl mx-auto">El asistente se adapta a tu sector. Sin plantillas — cada negocio es único.</p>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap justify-center gap-6 border-b border-[#2a2924] mb-8">
+        <button class="tab-btn active text-sm font-medium pb-3 px-2 text-[#f59e0b] border-b-2 border-[#f59e0b] transition" data-tab="restaurante">Restaurante</button>
+        <button class="tab-btn text-sm font-medium pb-3 px-2 text-[#888] hover:text-[#e5e5e5] transition" data-tab="clinica">Clínica</button>
+        <button class="tab-btn text-sm font-medium pb-3 px-2 text-[#888] hover:text-[#e5e5e5] transition" data-tab="peluqueria">Peluquería</button>
+        <button class="tab-btn text-sm font-medium pb-3 px-2 text-[#888] hover:text-[#e5e5e5] transition" data-tab="tienda">Tienda</button>
+    </div>
+
+    <!-- Restaurante -->
+    <div class="tab-content active" id="tab-restaurante">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+                <h3 class="text-xl font-bold mb-4">Restaurante</h3>
+                <ul class="space-y-3 text-[#888]">
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Gestiona reservas y preguntas frecuentes (horarios, menú, alergias)</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Captura datos de contacto para confirmar y hacer seguimiento</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Atiende fuera del horario del local — incluso los lunes de cierre</li>
+                </ul>
+            </div>
+            <div class="bg-[#0a0a09] rounded-2xl border border-[#2a2924] p-4 shadow-lg">
+                <div class="bg-[#1a1916] px-3 py-2 rounded-t-lg text-xs text-[#888] border-b border-[#2a2924]">WhatsApp conversación</div>
+                <div class="p-3 space-y-2 text-sm">
+                    <div class="flex"><div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-3 py-2 max-w-[85%]">Buenas, ¿qué horario tenéis?</div></div>
+                    <div class="flex justify-end"><div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-3 py-2 max-w-[85%]">¡Hola! Abrimos de martes a domingo de 13:00 a 16:00 y de 20:00 a 23:30. Cerramos los lunes. ¿Te ayudo con una reserva?</div></div>
+                </div>
             </div>
         </div>
-    </nav>
+    </div>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero" class="relative py-20 md:py-32 overflow-hidden">
-            <div class="container mx-auto px-6 text-center z-10 relative">
-                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 text-white tracking-tight fade-in-on-scroll">
-                    Automatiza tu WhatsApp, <br><span class="text-gradient-amber-orange">con Inteligencia Artificial</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-3xl mx-auto fade-in-on-scroll">
-                    GeneraIA es el asistente virtual definitivo para autónomos y PYMES en España. Responde preguntas comunes, cualifica leads, y cierra ventas 24/7.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-16 fade-in-on-scroll">
-                    <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20una%20prueba%20de%20GeneraIA" target="_blank" class="px-8 py-3 rounded-full font-bold text-lg text-white bg-gradient-amber-orange hover:opacity-90 transition-opacity shadow-lg">
-                        Prueba la Demo Gratuita
-                    </a>
-                    <a href="#precios" class="px-8 py-3 rounded-full font-bold text-lg text-amber-500 border-2 border-amber-500 hover:bg-amber-500 hover:text-white transition-colors duration-300">
-                        Ver Precios
-                    </a>
-                </div>
-
-                <!-- Product Mockup / Screenshot -->
-                <div class="relative max-w-5xl mx-auto mt-16 fade-in-on-scroll">
-                    <img src="https://via.placeholder.com/1200x700/0a0a0f/f59e0b?text=GeneraIA+Dashboard+Mockup" alt="GeneraIA Dashboard Mockup" class="rounded-lg shadow-2xl border border-gray-800">
-                    <div class="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-black opacity-30 pointer-events-none rounded-lg"></div>
-                    <div class="absolute top-0 right-0 -mr-20 -mt-20 w-48 h-48 bg-amber-500 rounded-full opacity-10 blur-3xl animate-pulse"></div>
-                    <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-48 h-48 bg-orange-600 rounded-full opacity-10 blur-3xl animate-pulse delay-500"></div>
+    <!-- Clínica -->
+    <div class="tab-content" id="tab-clinica">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+                <h3 class="text-xl font-bold mb-4">Clínica</h3>
+                <ul class="space-y-3 text-[#888]">
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Agenda y confirma citas automáticamente sin llamadas</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Resuelve dudas frecuentes sobre tratamientos y precios</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Captura leads cualificados y los envía a tu panel</li>
+                </ul>
+            </div>
+            <div class="bg-[#0a0a09] rounded-2xl border border-[#2a2924] p-4 shadow-lg">
+                <div class="bg-[#1a1916] px-3 py-2 rounded-t-lg text-xs text-[#888] border-b border-[#2a2924]">WhatsApp conversación</div>
+                <div class="p-3 space-y-2 text-sm">
+                    <div class="flex"><div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-3 py-2 max-w-[85%]">Hola, quería pedir cita para una revisión dental</div></div>
+                    <div class="flex justify-end"><div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-3 py-2 max-w-[85%]">¡Hola! Encantados. Tenemos disponible el jueves a las 17:00 o el viernes a las 10:30. ¿Cuál te va mejor?</div></div>
                 </div>
             </div>
-             <!-- Background Gradient Blob -->
-             <div class="absolute inset-0 overflow-hidden">
-                <div class="absolute w-96 h-96 bg-amber-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob top-1/4 left-1/4"></div>
-                <div class="absolute w-96 h-96 bg-orange-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000 bottom-1/4 right-1/4"></div>
-            </div>
-        </section>
+        </div>
+    </div>
 
-        <!-- Social Proof Bar -->
-        <section class="py-12 bg-gray-900 border-t border-b border-gray-800 fade-in-on-scroll">
-            <div class="container mx-auto px-6 text-center">
-                <p class="text-xl text-gray-400 mb-8">
-                    <span class="text-2xl font-bold text-amber-500">+100</span> negocios en España ya confían en GeneraIA para su atención al cliente 24/7.
-                </p>
-                <div class="flex justify-center items-center flex-wrap gap-8 grayscale opacity-70">
-                    <!-- Placeholder Logos - replace with actual client logos -->
-                    <img src="https://via.placeholder.com/100x40/0a0a0f/e2e8f0?text=Logo1" alt="Client Logo 1" class="h-10">
-                    <img src="https://via.placeholder.com/100x40/0a0a0f/e2e8f0?text=Logo2" alt="Client Logo 2" class="h-10">
-                    <img src="https://via.placeholder.com/100x40/0a0a0f/e2e8f0?text=Logo3" alt="Client Logo 3" class="h-10">
-                    <img src="https://via.placeholder.com/100x40/0a0a0f/e2e8f0?text=Logo4" alt="Client Logo 4" class="h-10">
-                    <img src="https://via.placeholder.com/100x40/0a0a0f/e2e8f0?text=Logo5" alt="Client Logo 5" class="h-10">
+    <!-- Peluquería -->
+    <div class="tab-content" id="tab-peluqueria">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+                <h3 class="text-xl font-bold mb-4">Peluquería</h3>
+                <ul class="space-y-3 text-[#888]">
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Gestiona reservas y cambios de última hora sin llamadas</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Responde dudas sobre servicios, precios y disponibilidad</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Recuerda automáticamente las citas a los clientes</li>
+                </ul>
+            </div>
+            <div class="bg-[#0a0a09] rounded-2xl border border-[#2a2924] p-4 shadow-lg">
+                <div class="bg-[#1a1916] px-3 py-2 rounded-t-lg text-xs text-[#888] border-b border-[#2a2924]">WhatsApp conversación</div>
+                <div class="p-3 space-y-2 text-sm">
+                    <div class="flex"><div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-3 py-2 max-w-[85%]">Buenas, ¿tenéis hueco para un corte de pelo esta tarde?</div></div>
+                    <div class="flex justify-end"><div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-3 py-2 max-w-[85%]">¡Hola! Sí, tenemos un hueco a las 18:30 con María. Te llevará unos 30 min. ¿Te viene bien?</div></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <!-- Cómo Funciona Section -->
-        <section id="como-funciona" class="py-20 md:py-24 bg-gray-950">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-12 fade-in-on-scroll">
-                    Así de fácil es <span class="text-gradient-amber-orange">empezar con GeneraIA</span>
-                </h2>
-                <div class="relative flex flex-col md:flex-row justify-center items-center space-y-12 md:space-y-0 md:space-x-16">
-                    <!-- Step 1 -->
-                    <div class="flex-1 max-w-sm fade-in-on-scroll">
-                        <div class="relative z-10 w-20 h-20 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-4xl font-bold text-gray-900 mb-6 shadow-xl">1</div>
-                        <h3 class="text-2xl font-semibold mb-3">Conecta tu WhatsApp</h3>
-                        <p class="text-gray-400">Integra tu cuenta de WhatsApp Business en minutos, sin código.</p>
-                    </div>
-
-                    <!-- Connector Line (for desktop) -->
-                    <div class="hidden md:block absolute top-1/3 w-full h-1 bg-gradient-amber-orange transform -translate-y-1/2 opacity-30 -z-0"></div>
-                     <div class="hidden md:block absolute top-1/3 w-full h-1 bg-gradient-amber-orange transform -translate-y-1/2 opacity-30 -z-0" style="left: 0; right: 0; margin-left: auto; margin-right: auto; max-width: 70%;"></div>
-
-
-                    <!-- Step 2 -->
-                    <div class="flex-1 max-w-sm fade-in-on-scroll" style="transition-delay: 0.2s;">
-                        <div class="relative z-10 w-20 h-20 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-4xl font-bold text-gray-900 mb-6 shadow-xl">2</div>
-                        <h3 class="text-2xl font-semibold mb-3">Entrena a tu IA</h3>
-                        <p class="text-gray-400">Sube tus documentos, preguntas frecuentes o URLs para que la IA aprenda de tu negocio.</p>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="flex-1 max-w-sm fade-in-on-scroll" style="transition-delay: 0.4s;">
-                        <div class="relative z-10 w-20 h-20 mx-auto bg-amber-500 rounded-full flex items-center justify-center text-4xl font-bold text-gray-900 mb-6 shadow-xl">3</div>
-                        <h3 class="text-2xl font-semibold mb-3">Activa y Vende 24/7</h3>
-                        <p class="text-gray-400">Tu asistente GeneraIA está listo para atender a tus clientes y cerrar ventas automáticamente.</p>
-                    </div>
+    <!-- Tienda -->
+    <div class="tab-content" id="tab-tienda">
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+                <h3 class="text-xl font-bold mb-4">Tienda</h3>
+                <ul class="space-y-3 text-[#888]">
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Consulta de stock, precios y disponibilidad de productos</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Captura leads de clientes interesados con sus datos de contacto</li>
+                    <li class="flex gap-3"><span class="text-[#f59e0b] mt-1">→</span> Atiende fuera del horario comercial sin perder ventas</li>
+                </ul>
+            </div>
+            <div class="bg-[#0a0a09] rounded-2xl border border-[#2a2924] p-4 shadow-lg">
+                <div class="bg-[#1a1916] px-3 py-2 rounded-t-lg text-xs text-[#888] border-b border-[#2a2924]">WhatsApp conversación</div>
+                <div class="p-3 space-y-2 text-sm">
+                    <div class="flex"><div class="bg-[#1a1916] border border-[#2a2924] rounded-2xl rounded-bl-sm px-3 py-2 max-w-[85%]">Hola, ¿tenéis la chaqueta azul en talla M?</div></div>
+                    <div class="flex justify-end"><div class="bg-[#f59e0b]/10 border border-[#f59e0b]/20 rounded-2xl rounded-br-sm px-3 py-2 max-w-[85%]">¡Sí! Tenemos la chaqueta azul en M, 89€. ¿Te la guardamos? Pasas a recogerla o te la enviamos 😊</div></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <!-- Product Showcase: WhatsApp Chat Simulation -->
-        <section id="product-showcase" class="py-20 md:py-24 bg-gray-900 border-t border-gray-800">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-12 fade-in-on-scroll">
-                    Experimenta la <span class="text-gradient-amber-orange">magia en acción</span>
-                </h2>
-                <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto fade-in-on-scroll">
-                    Mira cómo GeneraIA interactúa con tus clientes, responde sus dudas y les guía en el proceso de compra.
-                </p>
+<!-- ============================== -->
+<!-- PRECIO HONESTO -->
+<!-- ============================== -->
+<section id="precio" class="py-20 px-6 bg-[#1a1916]/50 border-y border-[#2a2924]/50">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Un precio. Sin sorpresas.</h2>
 
-                <div class="whatsapp-chat-container fade-in-on-scroll">
-                    <div class="whatsapp-chat-header">
-                        <img src="https://via.placeholder.com/40x40/0d6d59/ffffff?text=AI" alt="GeneraIA AI Avatar">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Columna: Sin GeneraIA -->
+            <div class="bg-[#0f0e0c] border border-[#2a2924] rounded-2xl p-8 opacity-70">
+                <h3 class="text-lg font-bold text-[#888] mb-6">Sin GeneraIA</h3>
+                <ul class="space-y-4">
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-red-500/60 mt-0.5">✕</span>
                         <div>
-                            <p>GeneraIA Asistente</p>
-                            <p class="text-sm text-gray-400">en línea</p>
+                            <p class="text-[#888]">Contratar personal</p>
+                            <p class="text-[#666] text-xs">desde 1.200€/mes</p>
                         </div>
-                    </div>
-                    <div id="chat-body" class="whatsapp-chat-body">
-                        <!-- Messages will be injected here by JS -->
-                    </div>
-                    <div class="whatsapp-chat-footer">
-                        <input type="text" placeholder="Escribe un mensaje..." disabled>
-                        <button><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
-                    </div>
-                </div>
+                    </li>
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-red-500/60 mt-0.5">✕</span>
+                        <div>
+                            <p class="text-[#888]">Perder clientes fuera de horario</p>
+                            <p class="text-[#666] text-xs">cada llamada perdida es un cliente que se va a otro</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-red-500/60 mt-0.5">✕</span>
+                        <div>
+                            <p class="text-[#888]">Responder los mismos mensajes cada día</p>
+                            <p class="text-[#666] text-xs">tu tiempo vale más que responder "¿qué horario tenéis?" 20 veces al día</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </section>
 
-        <!-- Beneficios Section -->
-        <section id="beneficios" class="py-20 md:py-24 bg-gray-950 border-t border-gray-800">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 fade-in-on-scroll">
-                    Beneficios <span class="text-gradient-amber-orange">para tu Negocio</span>
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll">
-                        <div class="w-16 h-16 bg-amber-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Atención 24/7</h3>
-                        <p class="text-gray-400">Nunca pierdas un cliente por falta de atención. GeneraIA está siempre disponible.</p>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.1s;">
-                        <div class="w-16 h-16 bg-amber-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M16 16h.01"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Cualificación de Leads</h3>
-                        <p class="text-gray-400">Identifica y segmenta automáticamente a los clientes más interesados.</p>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.2s;">
-                        <div class="w-16 h-16 bg-amber-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Incrementa Ventas</h3>
-                        <p class="text-gray-400">Guía a tus clientes durante el proceso de compra y cierra más ventas pasivamente.</p>
-                    </div>
-                    <!-- Card 4 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.3s;">
-                        <div class="w-16 h-16 bg-amber-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Soporte Automatizado</h3>
-                        <p class="text-gray-400">Libera tiempo de tu equipo respondiendo las preguntas frecuentes al instante.</p>
-                    </div>
-                    <!-- Card 5 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.4s;">
-                        <div class="w-16 h-16 bg-amber-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Fácil Implementación</h3>
-                        <p class="text-gray-400">Configuración sencilla, no requiere conocimientos técnicos ni programación.</p>
-                    </div>
-                    <!-- Card 6 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.5s;">
-                        <div class="w-16 h-16 bg-amber-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.279A7.952 7.952 0 0112 2c4.419 0 8 3.582 8 8 0 1.017-.27 1.978-.744 2.809l-7.22 7.22-1.767-1.767C9.272 17.56 8 15.86 8 14c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4c-.791 0-1.543-.232-2.18-.636l-3.235 3.235a1 1 0 01-1.414 0l-1.414-1.414a1 1 0 010-1.414z"></path></svg>
-                        </div>
-                        <h3 class="text-2xl font-semibold mb-4 text-white">Resultados Medibles</h3>
-                        <p class="text-gray-400">Accede a métricas claras para optimizar tu estrategia de atención al cliente.</p>
-                    </div>
-                </div>
+            <!-- Columna: Con GeneraIA -->
+            <div class="bg-[#0f0e0c] border-2 border-[#f59e0b]/40 rounded-2xl p-8 relative">
+                <div class="absolute -top-3 left-6 bg-[#f59e0b] text-[#0f0e0c] text-xs font-bold px-4 py-1 rounded-full">RECOMENDADO</div>
+                <h3 class="text-lg font-bold mb-2">Con GeneraIA</h3>
+                <p class="text-3xl font-bold mb-6"><span class="text-[#f59e0b]">149€</span><span class="text-[#888] text-lg font-normal">/mes</span></p>
+                <ul class="space-y-4">
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-green-500 mt-0.5">✓</span>
+                        <p class="text-[#e5e5e5]">Atención 24/7 sin personal adicional</p>
+                    </li>
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-green-500 mt-0.5">✓</span>
+                        <p class="text-[#e5e5e5]">Todos los leads capturados automáticamente</p>
+                    </li>
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-green-500 mt-0.5">✓</span>
+                        <p class="text-[#e5e5e5]">Tú solo gestionas los que ya quieren comprar</p>
+                    </li>
+                    <li class="flex gap-3 text-sm">
+                        <span class="text-green-500 mt-0.5">✓</span>
+                        <p class="text-[#e5e5e5]">30 días gratis, sin compromiso</p>
+                    </li>
+                </ul>
             </div>
-        </section>
-
-        <!-- Stats Section -->
-        <section class="py-20 md:py-24 bg-gray-900 border-t border-gray-800">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-12 fade-in-on-scroll">
-                    Impacto <span class="text-gradient-amber-orange">en Números Reales</span>
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="fade-in-on-scroll">
-                        <p class="text-6xl font-extrabold text-amber-500 mb-4 animate-pulse-slow">85%</p>
-                        <p class="text-xl text-gray-300">De ahorro en tiempo de atención al cliente</p>
-                    </div>
-                    <div class="fade-in-on-scroll" style="transition-delay: 0.2s;">
-                        <p class="text-6xl font-extrabold text-amber-500 mb-4 animate-pulse-slow">3X</p>
-                        <p class="text-xl text-gray-300">Más leads cualificados cada mes</p>
-                    </div>
-                    <div class="fade-in-on-scroll" style="transition-delay: 0.4s;">
-                        <p class="text-6xl font-extrabold text-amber-500 mb-4 animate-pulse-slow">90%</p>
-                        <p class="text-xl text-gray-300">De satisfacción en las respuestas de la IA</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="py-20 md:py-24 bg-gray-950 border-t border-gray-800">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 fade-in-on-scroll">
-                    Lo que Dicen Nuestros <span class="text-gradient-amber-orange">Clientes</span>
-                </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Testimonial 1 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll">
-                        <p class="text-gray-300 italic mb-6">"GeneraIA ha transformado la forma en que atendemos a nuestros clientes. Antes perdíamos muchas consultas fuera de horario, ahora la IA se encarga de todo."</p>
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/50x50/f59e0b/0a0a0f?text=JD" alt="Juan Diaz" class="rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold text-white">Juan Díaz</p>
-                                <p class="text-amber-500 text-sm">Propietario, Tienda Online XYZ</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonial 2 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.1s;">
-                        <p class="text-gray-300 italic mb-6">"La cualificación de leads que hace GeneraIA es increíble. Nuestros comerciales ahora solo hablan con personas realmente interesadas, aumentando nuestra tasa de conversión."</p>
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/50x50/f59e0b/0a0a0f?text=AM" alt="Ana Martínez" class="rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold text-white">Ana Martínez</p>
-                                <p class="text-amber-500 text-sm">Directora de Marketing, Asesoría Legal</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonial 3 -->
-                    <div class="glass-card p-8 rounded-xl shadow-lg border border-gray-800 fade-in-on-scroll" style="transition-delay: 0.2s;">
-                        <p class="text-gray-300 italic mb-6">"Es una herramienta potentísima y muy sencilla de usar. En menos de un día teníamos nuestro asistente funcionando y resolviendo dudas."</p>
-                        <div class="flex items-center">
-                            <img src="https://via.placeholder.com/50x50/f59e0b/0a0a0f?text=CP" alt="Carlos Pérez" class="rounded-full mr-4">
-                            <div>
-                                <p class="font-semibold text-white">Carlos Pérez</p>
-                                <p class="text-amber-500 text-sm">CEO, Agencia Digital</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing Section -->
-        <section id="precios" class="py-20 md:py-24 bg-gray-900 border-t border-gray-800">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-12 fade-in-on-scroll">
-                    Invierte en <span class="text-gradient-amber-orange">Crecimiento, no en Horas</span>
-                </h2>
-                <p class="text-xl text-gray-400 mb-16 max-w-3xl mx-auto fade-in-on-scroll">
-                    Un precio simple y transparente para un valor incalculable.
-                </p>
-
-                <!-- Pricing Card (Single Tier as per current model) -->
-                <div class="max-w-xl mx-auto glass-card p-10 rounded-xl shadow-2xl border-2 border-amber-500 relative overflow-hidden fade-in-on-scroll">
-                    <div class="absolute top-0 right-0 py-2 px-6 bg-gradient-amber-orange text-white font-bold rounded-bl-lg text-sm">POPULAR</div>
-                    <h3 class="text-3xl font-bold mb-4 text-white">Plan Pro</h3>
-                    <p class="text-gray-400 text-lg mb-8">Ideal para autónomos y PYMES que buscan automatización completa.</p>
-                    <p class="text-5xl font-extrabold text-amber-500 mb-2">
-                        €149<span class="text-2xl text-gray-400">/mes</span>
-                    </p>
-                    <p class="text-gray-500 mb-8">Sin compromisos, cancela cuando quieras.</p>
-
-                    <ul class="text-left space-y-4 mb-10 text-gray-300">
-                        <li class="flex items-center">
-                            <svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Asistente IA 24/7 en WhatsApp</span>
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Respuestas ilimitadas</span>
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Conexión con datos de tu negocio (PDFs, URLs)</span>
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Cualificación avanzada de leads</span>
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Panel de control con analíticas</span>
-                        </li>
-                        <li class="flex items-center">
-                            <svg class="w-6 h-6 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span>Soporte prioritario</span>
-                        </li>
-                    </ul>
-
-                    <a href="https://demo.generaia.org/signup" target="_blank" class="block w-full py-3 rounded-full font-bold text-xl text-white bg-gradient-amber-orange hover:opacity-90 transition-opacity shadow-lg">
-                        Empezar Ahora
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Final CTA Section -->
-        <section class="py-20 md:py-24 bg-gray-950 border-t border-gray-800">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-5xl font-extrabold mb-8 fade-in-on-scroll">
-                    ¿Listo para transformar tu <span class="text-gradient-amber-orange">atención al cliente?</span>
-                </h2>
-                <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto fade-in-on-scroll">
-                    Únete a los negocios que ya están ahorrando tiempo y aumentando sus ventas.
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20empezar%20con%20GeneraIA" target="_blank" class="px-8 py-3 rounded-full font-bold text-xl text-white bg-gradient-amber-orange hover:opacity-90 transition-opacity shadow-lg">
-                        Empezar con GeneraIA
-                    </a>
-                    <a href="mailto:hola@generaia.org" class="px-8 py-3 rounded-full font-bold text-xl text-amber-500 border-2 border-amber-500 hover:bg-amber-500 hover:text-white transition-colors duration-300">
-                        Contactar Ventas
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-800 py-12">
-        <div class="container mx-auto px-6 text-center text-gray-500 text-sm">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <div class="mb-4 md:mb-0">
-                    <a href="#hero" class="flex items-center text-2xl font-bold text-white">
-                        GeneraIA<span class="text-amber-500">.</span>
-                    </a>
-                    <p class="mt-2 text-gray-400">Automatización inteligente para tu WhatsApp.</p>
-                </div>
-                <div class="flex flex-col md:flex-row md:space-x-8 space-y-4 md:space-y-0">
-                    <div class="text-left md:text-center">
-                        <p class="font-semibold text-white mb-2">Compañía</p>
-                        <ul>
-                            <li><a href="#beneficios" class="hover:text-amber-500 transition-colors">Beneficios</a></li>
-                            <li><a href="#como-funciona" class="hover:text-amber-500 transition-colors">Cómo funciona</a></li>
-                            <li><a href="https://blog.generaia.org" target="_blank" class="hover:text-amber-500 transition-colors">Blog</a></li>
-                        </ul>
-                    </div>
-                    <div class="text-left md:text-center">
-                        <p class="font-semibold text-white mb-2">Recursos</p>
-                        <ul>
-                            <li><a href="#precios" class="hover:text-amber-500 transition-colors">Precios</a></li>
-                            <li><a href="https://demo.generaia.org" target="_blank" class="hover:text-amber-500 transition-colors">Dashboard</a></li>
-                            <li><a href="https://wa.me/34681072103" target="_blank" class="hover:text-amber-500 transition-colors">Demo WhatsApp</a></li>
-                        </ul>
-                    </div>
-                    <div class="text-left md:text-center">
-                        <p class="font-semibold text-white mb-2">Contacto</p>
-                        <ul>
-                            <li><a href="mailto:hola@generaia.org" class="hover:text-amber-500 transition-colors">hola@generaia.org</a></li>
-                            <li><a href="#" class="hover:text-amber-500 transition-colors">Política de Privacidad</a></li>
-                            <li><a href="#" class="hover:text-amber-500 transition-colors">Términos de Servicio</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <p>&copy; 2024 GeneraIA. Todos los derechos reservados.</p>
         </div>
-    </footer>
 
+        <div class="text-center mt-10">
+            <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="inline-block bg-[#f59e0b] text-[#0f0e0c] px-10 py-4 rounded-xl font-bold text-lg hover:brightness-110 transition shadow-lg shadow-[#f59e0b]/20">
+                Empezar los 30 días gratis
+            </a>
+        </div>
+    </div>
+</section>
 
-    <script>
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                // Close mobile menu if open
-                if (document.getElementById('mobile-menu').classList.contains('flex')) {
-                    document.getElementById('mobile-menu').classList.remove('flex');
-                    document.getElementById('mobile-menu').classList.add('hidden');
-                }
+<!-- ============================== -->
+<!-- CTA FINAL -->
+<!-- ============================== -->
+<section class="py-24 px-6 max-w-3xl mx-auto text-center">
+    <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">¿Tienes 15 minutos?</h2>
+    <p class="text-lg text-[#888] mb-10 max-w-xl mx-auto leading-relaxed">
+        Cuéntame cómo es tu negocio. Si veo que puedo ayudarte, configuramos el asistente gratis durante 30 días. Sin contrato, sin riesgos.
+    </p>
+    <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20GeneraIA" target="_blank" rel="noopener" class="inline-block bg-[#f59e0b] text-[#0f0e0c] px-10 py-5 rounded-xl font-bold text-xl hover:brightness-110 transition shadow-lg shadow-[#f59e0b]/20 mb-4">
+        Escribir por WhatsApp →
+    </a>
+    <p class="text-sm text-[#888]">o escríbeme a <a href="mailto:hola@generaia.org" class="text-[#e5e5e5] underline underline-offset-2 hover:text-[#f59e0b] transition">hola@generaia.org</a></p>
+</section>
+
+<!-- ============================== -->
+<!-- FOOTER -->
+<!-- ============================== -->
+<footer class="border-t border-[#2a2924] py-8 px-6">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-[#888]">
+        <div class="flex items-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="16" cy="16" r="12" stroke="#f59e0b" stroke-width="2" fill="none"/>
+                <text x="16" y="22" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Satoshi, sans-serif">G</text>
+            </svg>
+            <span>GeneraIA — 2026</span>
+        </div>
+        <div class="flex gap-6">
+            <a href="mailto:hola@generaia.org" class="hover:text-[#e5e5e5] transition">hola@generaia.org</a>
+            <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="hover:text-[#e5e5e5] transition">WhatsApp</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================== -->
+<!-- TABS SCRIPT -->
+<!-- ============================== -->
+<script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active', 'text-[#f59e0b]', 'border-[#f59e0b]');
+                b.classList.add('text-[#888]');
             });
+            btn.classList.add('active', 'text-[#f59e0b]', 'border-[#f59e0b]');
+            btn.classList.remove('text-[#888]');
+
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
         });
-
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-        });
-
-
-        // Intersection Observer for fade-in-on-scroll animation
-        const fadeInElements = document.querySelectorAll('.fade-in-on-scroll');
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Stop observing once visible
-                }
-            });
-        }, {
-            threshold: 0.1, // Trigger when 10% of the element is visible
-            rootMargin: "0px"
-        });
-
-        fadeInElements.forEach(element => {
-            observer.observe(element);
-        });
-
-        // WhatsApp Chat Simulation
-        const chatBody = document.getElementById('chat-body');
-        const messages = [
-            { sender: 'client', text: '¡Hola! ¿GeneraIA me puede ayudar a captar clientes para mi asesoría legal?' },
-            { sender: 'ai', text: '¡Claro que sí! Con GeneraIA puedes automatizar la cualificación de clientes, responder preguntas iniciales sobre tus servicios y agendar citas, todo desde WhatsApp.' },
-            { sender: 'client', text: 'Genial. ¿Y cómo funciona la cualificación? ¿Detecta si es un lead serio o no?' },
-            { sender: 'ai', text: 'Exacto. Nuestro IA está entrenado para hacer preguntas clave y entender la intención del usuario. Si detecta un interés alto, lo marca como lead cualificado y te notifica.' },
-            { sender: 'client', text: 'Entendido. Me gustaría saber si tiene algún coste inicial o si tengo un periodo de prueba.' },
-            { sender: 'ai', text: 'GeneraIA no tiene coste de configuración. Ofrecemos una demo gratuita para que veas cómo funciona. Luego, el Plan Pro tiene un coste de 149€/mes. ¿Te gustaría agendar una demo personalizada?' },
-            { sender: 'client', text: 'Sí, por favor. ¿Podrías indicarme cómo puedo agendarla?' },
-            { sender: 'ai', text: 'Puedes agendar tu demo directamente desde nuestro dashboard en <a href="https://demo.generaia.org" target="_blank" class="text-amber-400 underline">demo.generaia.org</a> o contactar a nuestro equipo de ventas a través de hola@generaia.org.' }
-        ];
-
-        let messageIndex = 0;
-
-        function addMessage(msg) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('whatsapp-message', msg.sender);
-
-            const textSpan = document.createElement('span');
-            textSpan.innerHTML = msg.text; // Use innerHTML to allow links
-            Object.assign(textSpan.style, {
-                opacity: '0',
-                transition: 'opacity 0.5s ease-in'
-            });
-
-
-            messageDiv.appendChild(textSpan);
-            chatBody.appendChild(messageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom
-
-            // Animate message fade in
-            setTimeout(() => {
-                textSpan.style.opacity = '1';
-            }, 10);
-        }
-
-        function typeMessage(index) {
-            if (index < messages.length) {
-                const msg = messages[index];
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('whatsapp-message', msg.sender);
-
-                const typingSpan = document.createElement('span');
-                typingSpan.classList.add('typing-animation');
-
-                messageDiv.appendChild(typingSpan);
-                chatBody.appendChild(messageDiv);
-                chatBody.scrollTop = chatBody.scrollHeight;
-
-                let charIndex = 0;
-                typingSpan.textContent = ''; // Clear initial content for typing effect
-
-                const typeChar = () => {
-                    if (charIndex < msg.text.length) {
-                        if (msg.text.substring(charIndex, charIndex + 4) === '<a h') { // Detect start of <a> tag
-                            let endIndex = msg.text.indexOf('</a>', charIndex) + 4;
-                            if (endIndex > 4) { // Ensure found
-                                typingSpan.innerHTML = msg.text.substring(0, endIndex);
-                                charIndex = endIndex;
-                            } else {
-                                typingSpan.innerHTML += msg.text.charAt(charIndex);
-                                charIndex++;
-                            }
-                        } else {
-                            typingSpan.innerHTML += msg.text.charAt(charIndex);
-                            charIndex++;
-                        }
-                        chatBody.scrollTop = chatBody.scrollHeight;
-                        requestAnimationFrame(typeChar);
-                    } else {
-                        typingSpan.classList.remove('typing-animation'); // Remove typing cursor after message is complete
-                        setTimeout(() => {
-                            typeMessage(index + 1); // Next message
-                        }, msg.sender === 'client' ? 1500 : 3000); // Shorter pause after client msg, longer after AI
-                    }
-                };
-                requestAnimationFrame(typeChar);
-            }
-        }
-
-
-        // Start chat simulation after elements are visible
-        const chatContainer = document.querySelector('.whatsapp-chat-container');
-        const chatObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    typeMessage(messageIndex); // Start the typing animation sequence
-                    chatObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.5 // Trigger when 50% of the chat container is visible
-        });
-
-        chatObserver.observe(chatContainer);
-
-
-    </script>
+    });
+</script>
 </body>
 </html>
