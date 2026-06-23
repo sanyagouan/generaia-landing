@@ -1,0 +1,280 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Demo Taller Mecánico">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .chat-container {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #e5ddd5; /* WhatsApp background color */
+      padding: 10px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+    .message {
+      display: flex;
+      margin-bottom: 8px;
+    }
+    .message.sent {
+      justify-content: flex-end;
+    }
+    .message.received {
+      justify-content: flex-start;
+    }
+    .message-bubble {
+      max-width: 70%;
+      padding: 10px 12px;
+      border-radius: 18px;
+      position: relative;
+      word-wrap: break-word;
+      font-size: 0.9em;
+    }
+    .message.sent .message-bubble {
+      background-color: #dcf8c6; /* WhatsApp green bubble */
+      color: #1f1f1f;
+      border-bottom-right-radius: 2px;
+      margin-right: 7px; /* Align with WhatsApp style */
+    }
+    .message.received .message-bubble {
+      background-color: #ffffff; /* WhatsApp white/grey bubble */
+      color: #1f1f1f;
+      border-bottom-left-radius: 2px;
+      margin-left: 7px; /* Align with WhatsApp style */
+    }
+    .input-area {
+      display: flex;
+      padding: 8px 10px;
+      background-color: #f0f0f0;
+      border-top: 1px solid #ddd;
+    }
+    .input-area input {
+      flex-grow: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px;
+      margin-right: 8px;
+      font-size: 1em;
+      background-color: #fff;
+    }
+    .input-area button {
+      background-color: #075e54; /* WhatsApp send button color */
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .cta-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366; /* WhatsApp green */
+      color: white;
+      padding: 15px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: transform 0.2s;
+    }
+    .cta-button:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <div class="chat-container" id="chatContainer">
+    <div class="message received">
+      <div class="message-bubble">Hola, soy el asistente virtual de tu taller. ¿En qué puedo ayudarte hoy?</div>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Escribe un mensaje..." />
+    <button id="sendButton">➤</button>
+  </div>
+
+  <a href="https://wa.me/34681072103" target="_blank" class="cta-button">
+    Quiero esto en mi negocio
+  </a>
+
+  <script>
+    const chatContainer = document.getElementById('chatContainer');
+    const userInput = document.getElementById('userInput');
+    const sendButton = document.getElementById('sendButton');
+
+    const responses = [
+      {
+        patterns: ['cita', 'citas', 'reservar', 'pedir cita', 'agendar'],
+        answer: 'Para pedir una cita, por favor visita nuestra web o llámanos al 912 345 678. También puedes especificar qué día y hora te gustaría y lo consulto.'
+      },
+      {
+        patterns: ['estado reparacion', 'estado de mi vehiculo', 'mi coche', 'como va mi coche', 'reparado'],
+        answer: 'Para consultar el estado de tu reparación, por favor indícanos la matrícula de tu vehículo o el número de orden de trabajo.'
+      },
+      {
+        patterns: ['precio aceite', 'cambio aceite', 'cuanto cuesta aceite'],
+        answer: 'El cambio de aceite básico tiene un precio de 45€.'
+      },
+      {
+        patterns: ['precio frenos', 'cambio frenos', 'pastillas', 'discos', 'cuanto cuesta frenos'],
+        answer: 'El cambio de frenos (pastillas delanteras) cuesta aproximadamente 120€. Para un presupuesto exacto, necesitamos revisar tu vehículo.'
+      },
+      {
+        patterns: ['precio itv', 'pasar itv', 'cuanto itv', 'inspeccion tecnica'],
+        answer: 'La revisión pre-ITV y gestión cuesta 35€ (tasa ITV no incluida).'
+      },
+      {
+        patterns: ['horario', 'abierto', 'horas', 'cuando abris'],
+        answer: 'Nuestro horario es de Lunes a Viernes de 8:30 a 19:00 y Sábados de 9:00 a 13:00.'
+      },
+       {
+        patterns: ['presupuesto', 'cuanto vale', 'coste'],
+        answer: 'Necesitamos más detalles sobre lo que necesitas. ¿Podrías especificar el servicio o la pieza?'
+      },
+      {
+        patterns: ['gracias', 'muchas gracias', 'ok'],
+        answer: 'De nada. ¿Hay algo más en lo que pueda ayudarte?'
+      },
+      {
+        patterns: ['hola', 'que tal'],
+        answer: '¡Hola! ¿En qué puedo asistirte hoy?'
+      },
+      {
+        patterns: ['direccion', 'donde estais', 'localizacion'],
+        answer: 'Estamos en Calle Falsa 123, Madrid.'
+      },
+      {
+        patterns: ['ruido raro', 'problema coche', 'averia'],
+        answer: 'Entiendo. Lo mejor es que pases por el taller para que podamos diagnosticar el problema.'
+      },
+      {
+        patterns: ['neumaticos', 'ruedas', 'cambiar ruedas'],
+        answer: 'Tenemos ofertas en neumáticos. ¿Qué tipo de neumáticos o marca te interesan?'
+      },
+      {
+        patterns: ['revision', 'revision anual', 'mantenimiento'],
+        answer: 'Ofrecemos revisiones completas desde 90€. ¿Quieres programar una?'
+      },
+      {
+        patterns: ['pulir faros', 'faros opacos'],
+        answer: 'El pulido de faros tiene un coste de 50€.'
+      },
+      {
+        patterns: ['diagnostico', 'fallo motor'],
+        answer: 'Realizamos diagnóstico electrónico. El coste es de 40€, que se descontará de la reparación si la realizas con nosotros.'
+      },
+      {
+        patterns: ['garantia', 'reparacion'],
+        answer: 'Todas nuestras reparaciones tienen 6 meses o 15.000km de garantía.'
+      },
+      {
+        patterns: ['mecanicos', 'equipo'],
+        answer: 'Contamos con un equipo de mecánicos altamente cualificados y con años de experiencia. ¡Tu coche estará en buenas manos!'
+      },
+      {
+        patterns: ['urgencia', 'necesito ayuda ya'],
+        answer: 'Para urgencias, por favor llámanos directamente al 912 345 678.'
+      },
+      {
+        patterns: ['recambios', 'piezas'],
+        answer: 'Trabajamos con recambios originales y de primera calidad. ¿Qué pieza necesitas?'
+      },
+      {
+        patterns: ['factura', 'pagos'],
+        answer: 'Puedes solicitar tu factura al recoger el vehículo o te la podemos enviar por correo electrónico.'
+      },
+      {
+        patterns: ['whatsapp', 'contacto whatsapp'],
+        answer: 'Actualmente, este es un chat de demo. Puedes contactarnos por teléfono o en persona.'
+      },
+      {
+        patterns: ['felicitaciones', 'gracias por el buen trabajo'],
+        answer: '¡Muchas gracias por tus amables palabras! Nos alegramos de que estés satisfecho con nuestro servicio.'
+      },
+      {
+        patterns: ['taller cerca', 'coche estropeado'],
+        answer: 'Si tu coche se ha estropeado cerca, podemos organizar una grúa para traerlo a nuestro taller.'
+      },
+      {
+        patterns: ['parking', 'aparcamiento'],
+        answer: 'Disponemos de aparcamiento gratuito para clientes.'
+      },
+       {
+        patterns: ['hola que tal'],
+        answer: '¡Hola! ¿En qué puedo asistirte hoy?'
+      },
+      {
+        patterns: ['otra pregunta', 'algo mas'],
+        answer: 'Claro, dime en qué más te puedo ayudar.'
+      },
+      {
+        patterns: ['no entiendo', 'puedes repetir'],
+        answer: 'Disculpa, ¿podrías reformular tu pregunta para que pueda entenderte mejor?'
+      },
+      {
+        patterns: ['cancelar cita', 'cambiar cita'],
+        answer: 'Para cancelar o cambiar tu cita, por favor llámanos o envía un correo electrónico con antelación.'
+      }
+
+    ];
+
+    function addMessage(text, sender) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', sender);
+      const bubble = document.createElement('div');
+      bubble.classList.add('message-bubble');
+      bubble.textContent = text;
+      messageElement.appendChild(bubble);
+      chatContainer.appendChild(messageElement);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function getBotResponse(message) {
+      const normalizedMessage = message.toLowerCase();
+      for (const res of responses) {
+        for (const pattern of res.patterns) {
+          // Simple fuzzy matching: check if pattern is included in the message
+          if (normalizedMessage.includes(pattern)) {
+            return res.answer;
+          }
+        }
+      }
+      return 'Disculpa, no he entendido tu pregunta. ¿Podrías ser más específico?';
+    }
+
+    sendButton.addEventListener('click', () => {
+      const userMessage = userInput.value.trim();
+      if (userMessage) {
+        addMessage(userMessage, 'sent');
+        userInput.value = '';
+        setTimeout(() => {
+          const botResponse = getBotResponse(userMessage);
+          addMessage(botResponse, 'received');
+        }, 500); // Simulate typing delay
+      }
+    });
+
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendButton.click();
+      }
+    });
+  </script>
+</Layout>

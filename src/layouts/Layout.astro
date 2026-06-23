@@ -1,33 +1,130 @@
-<!doctype html>
 ---
 export interface Props {
-  title?: string;
+  title: string;
+  description?: string;
 }
 
-const { title = "GeneraIA — Tu negocio, atendido 24/7 por IA" } = Astro.props;
+const { title, description = "Asistentes IA por WhatsApp que responden, venden y fidelizan por ti. GeneraIA — automatización inteligente para tu negocio." } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="GeneraIA — Asistentes inteligentes por WhatsApp que atienden a tus clientes 24/7. Captura leads, automatiza respuestas, haz crecer tu negocio." />
+    <meta name="description" content={description} />
     <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <title>{title} | GeneraIA</title>
   </head>
-  <body class="bg-[#0a0a0a] text-[#f7f8f8] font-sans antialiased">
-    <slot />
+  <body>
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-bg/80 border-b border-border">
+      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="/" class="font-display text-xl font-bold tracking-tight">
+          Genera<span class="text-accent">IA</span>
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="/como-funciona" class="text-text-secondary hover:text-text transition-colors text-sm tracking-wide">Cómo Funciona</a>
+          <a href="/sectores" class="text-text-secondary hover:text-text transition-colors text-sm tracking-wide">Sectores</a>
+          <a href="/precios" class="text-text-secondary hover:text-text transition-colors text-sm tracking-wide">Precios</a>
+        </div>
+        <a href="https://wa.me/34681072103" target="_blank" class="bg-accent hover:bg-accent-hover text-bg px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105">
+          Hablar con nosotros
+        </a>
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="md:hidden text-text-secondary hover:text-text" aria-label="Menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-bg/95 backdrop-blur-xl">
+        <div class="px-6 py-4 flex flex-col gap-4">
+          <a href="/como-funciona" class="text-text-secondary hover:text-text transition-colors text-sm">Cómo Funciona</a>
+          <a href="/sectores" class="text-text-secondary hover:text-text transition-colors text-sm">Sectores</a>
+          <a href="/precios" class="text-text-secondary hover:text-text transition-colors text-sm">Precios</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-16">
+      <slot />
+    </main>
+
+    <footer class="border-t border-border mt-32">
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div class="md:col-span-2">
+            <h3 class="font-display text-2xl font-bold mb-4">Genera<span class="text-accent">IA</span></h3>
+            <p class="text-text-secondary max-w-md leading-relaxed">
+              Asistentes inteligentes por WhatsApp que transforman la atención al cliente de tu negocio. Automatización que se siente humana.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-display text-sm font-semibold uppercase tracking-wider text-text-secondary mb-4">Navegación</h4>
+            <ul class="space-y-3">
+              <li><a href="/como-funciona" class="text-text-tertiary hover:text-text transition-colors text-sm">Cómo Funciona</a></li>
+              <li><a href="/sectores" class="text-text-tertiary hover:text-text transition-colors text-sm">Sectores</a></li>
+              <li><a href="/precios" class="text-text-tertiary hover:text-text transition-colors text-sm">Precios</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-display text-sm font-semibold uppercase tracking-wider text-text-secondary mb-4">Contacto</h4>
+            <ul class="space-y-3">
+              <li><a href="https://wa.me/34681072103" target="_blank" class="text-text-tertiary hover:text-accent transition-colors text-sm">WhatsApp</a></li>
+              <li><a href="mailto:generaia@proton.me" class="text-text-tertiary hover:text-text transition-colors text-sm">generaia@proton.me</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-text-tertiary text-xs">&copy; 2026 GeneraIA. Todos los derechos reservados.</p>
+          <p class="text-text-tertiary text-xs">Hecho con IA en España 🇪🇸</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+      });
+
+      // Lenis smooth scroll
+      import('lenis').then(({ default: Lenis }) => {
+        const lenis = new Lenis({
+          lerp: 0.1,
+          smoothWheel: true,
+        });
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Expose lenis for GSAP ScrollTrigger
+        (window as any).__lenis = lenis;
+      });
+
+      // Page load animation
+      document.querySelectorAll('[data-animate]').forEach((el, i) => {
+        (el as HTMLElement).style.opacity = '0';
+        (el as HTMLElement).style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          (el as HTMLElement).style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+          (el as HTMLElement).style.opacity = '1';
+          (el as HTMLElement).style.transform = 'translateY(0)';
+        }, 150 + i * 80);
+      });
+    </script>
   </body>
 </html>
-<style>
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', system-ui, -apple-system, sans-serif; }
-  h1, h2, h3, h4 { font-family: 'Space Grotesk', system-ui, sans-serif; }
-  ::selection { background: rgba(245, 158, 11, 0.3); color: #f7f8f8; }
-  .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); }
-  .glass-hover:hover { background: rgba(255,255,255,0.06); border-color: rgba(245,158,11,0.3); }
-</style>

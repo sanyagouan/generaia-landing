@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Demo Academia Brújula | GeneraIA">
+  <section class="max-w-md mx-auto h-[calc(100vh-4rem)] flex flex-col bg-[#e5ddd5] relative rounded-xl overflow-hidden shadow-2xl">
+    <div class="bg-[#075e54] text-white px-4 py-3 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-[#25d366] flex items-center justify-center text-white font-bold text-sm">AB</div>
+      <div>
+        <p class="font-semibold text-sm">Academia Brújula</p>
+        <p class="text-[10px] opacity-80">en línea</p>
+      </div>
+    </div>
+    <div id="chatMessages" class="flex-1 overflow-y-auto p-3 space-y-2"></div>
+    <div class="bg-[#f0f0f0] px-3 py-2 flex gap-2 border-t border-[#ddd]">
+      <input id="chatInput" type="text" placeholder="Escribe un mensaje..." class="flex-1 px-4 py-2.5 rounded-full border-none bg-white text-sm focus:outline-none" />
+      <button id="sendBtn" class="w-11 h-11 rounded-full bg-[#075e54] text-white text-lg flex items-center justify-center hover:bg-[#054d44] transition-colors">➤</button>
+    </div>
+  </section>
+
+  <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+    <a href="https://wa.me/34681072103?text=Hola%20GeneraIA%2C%20quiero%20esto%20en%20mi%20academia" target="_blank" class="bg-[#25d366] hover:bg-[#1da851] text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 text-sm md:text-base animate-bounce-subtle">
+      Quiero esto en mi negocio
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+</Layout>
+
+<style is:global>
+  .whatsapp-msg-sent { background: #dcf8c6; border-radius: 8px 8px 2px 8px; align-self: flex-end; }
+  .whatsapp-msg-recv { background: #fff; border-radius: 8px 8px 8px 2px; align-self: flex-start; }
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  .animate-bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
+</style>
+
+<script is:inline>
+(function() {
+  const chat = document.getElementById('chatMessages');
+  const input = document.getElementById('chatInput');
+  const btn = document.getElementById('sendBtn');
+
+  const botName = 'Academia Brújula';
+  const whatsapp = 'https://wa.me/34681072103?text=Hola%20GeneraIA%2C%20quiero%20esto%20en%20mi%20academia';
+
+  const responses = [
+    { p: ['matricula','inscripcion','apuntarme'], r: 'Puedes matricularte online en nuestra web, llamando al 963 123 456, o viniendo a la academia en Calle del Saber 45, Valencia.' },
+    { p: ['horario','clase','a que hora','cuando'], r: 'Tenemos horarios de mañana y tarde, de lunes a viernes. ¿Qué asignatura te interesa para darte más detalles?' },
+    { p: ['precio refuerzo','cuanto cuesta refuerzo','apoyo escolar'], r: 'El refuerzo escolar son 85€/mes con 2h semanales por asignatura.' },
+    { p: ['ingles','precio ingles'], r: 'Inglés: 95€/mes (niveles básico a avanzado, incluye material).' },
+    { p: ['matematicas','mate','precio mate'], r: 'Matemáticas: 80€/mes con 2h semanales. También ofrecemos intensivos de verano.' },
+    { p: ['profesor','quien da','docente'], r: 'Contamos con profesores titulados y con experiencia en cada materia. Todos con formación específica en su área.' },
+    { p: ['online','a distancia','remoto'], r: 'Sí, ofrecemos clases online en directo para la mayoría de asignaturas.' },
+    { p: ['examen','selectividad','evau','preparacion'], r: 'Preparamos para ESO, Bachillerato, Selectividad (EVAU) y exámenes oficiales de idiomas.' },
+    { p: ['ubicacion','donde estais','direccion'], r: 'Estamos en Calle del Saber 45, Valencia. Muy cerca de la parada de metro Xàtiva.' },
+    { p: ['cuanto cuesta','precio','tarifa'], r: 'Los precios van desde 80€ a 95€/mes según la asignatura. También tenemos bonos de 10h sueltas por 120€.' },
+    { p: ['hola','buenas','que tal'], r: '¡Hola! Soy el asistente de Academia Brújula. Puedo resolverte dudas sobre matrícula, horarios, precios y más. ¿En qué te ayudo?' },
+    { p: ['gracias','vale','ok'], r: '¡De nada! Si necesitas algo más, aquí estoy. También puedes escribirnos directamente por WhatsApp.' },
+    { p: ['edad','que edad','peque','niño','adulto'], r: 'Tenemos grupos desde 6 años hasta adultos. Tenemos programas específicos por rango de edad.' },
+    { p: ['verano','julio','agosto','intensivo'], r: 'Sí, tenemos cursos intensivos de verano en julio y septiembre. Pregunta por fechas y precios.' },
+    { p: ['grupo','individual','personalizada'], r: 'Ofrecemos clases en grupo reducido (máx. 6 alumnos) y también clases individuales personalizadas.' },
+    { p: ['pago','mensualidad','como pago'], r: ' domiciliación bancaria, tarjeta o efectivo. La mensualidad se paga los primeros 5 días del mes.' },
+    { p: ['prueba','gratis','probarlo'], r: 'Ofrecemos una clase de prueba gratuita sin compromiso. ¿Qué asignatura te interesa?' },
+    { p: ['idioma','frances','aleman','valenciano'], r: 'Impartimos inglés, francés y alemán. Todos los niveles. Consulta disponibilidad.' },
+  ];
+
+  function addMsg(text, isUser) {
+    const div = document.createElement('div');
+    div.className = `max-w-[80%] p-3 text-sm shadow-sm ${isUser ? 'whatsapp-msg-sent ml-auto' : 'whatsapp-msg-recv'}`;
+    div.textContent = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function getBotReply(msg) {
+    const m = msg.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    for (const r of responses) {
+      for (const p of r.p) {
+        if (m.includes(p)) return r.r;
+      }
+    }
+    return 'No he entendido bien tu pregunta. En la versión completa, mi IA aprendería de tu academia y respondería todo automáticamente. ¿Te gustaría ver cómo funcionaría en tu negocio?';
+  }
+
+  function send() {
+    const msg = input.value.trim();
+    if (!msg) return;
+    addMsg(msg, true);
+    input.value = '';
+    setTimeout(() => addMsg(getBotReply(msg), false), 600);
+  }
+
+  btn.addEventListener('click', send);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+
+  // Welcome message
+  addMsg('¡Hola! Soy el asistente virtual de Academia Brújula. Pregúntame sobre matrícula, horarios, precios, profesores o cualquier otra cosa.', false);
+})();
+</script>
