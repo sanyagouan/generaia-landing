@@ -1,10 +1,13 @@
 ---
+import "../styles/global.css";
+
 export interface Props {
-  title: string;
+  title?: string;
   description?: string;
+  active?: string;
 }
 
-const { title, description = "Asistentes IA por WhatsApp que responden, venden y fidelizan por ti. GeneraIA — automatización inteligente para tu negocio." } = Astro.props;
+const { title = "GeneraIA — Tu negocio atiende solo, tú descansas", description = "Asistente de WhatsApp con IA para tu negocio. Responde clientes, captura leads y agenda citas 24/7. Pruébalo gratis 30 días.", active = "inicio" } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,118 +16,109 @@ const { title, description = "Asistentes IA por WhatsApp que responden, venden y
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="theme-color" content="#0f0e0c" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://generaia.org" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-    <title>{title} | GeneraIA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <title>{title}</title>
   </head>
   <body>
-    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-bg/80 border-b border-border">
-      <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="/" class="font-display text-xl font-bold tracking-tight">
-          Genera<span class="text-accent">IA</span>
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-border/50" style="background:rgba(15,14,12,0.85)">
+      <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="logo-mark"></div>
+          <span class="text-lg font-bold tracking-tight" style="font-family:var(--font-display)">Genera<span style="color:var(--accent)">IA</span></span>
         </a>
-        <div class="hidden md:flex items-center gap-8">
-          <a href="/como-funciona" class="text-text-secondary hover:text-text transition-colors text-sm tracking-wide">Cómo Funciona</a>
-          <a href="/sectores" class="text-text-secondary hover:text-text transition-colors text-sm tracking-wide">Sectores</a>
-          <a href="/precios" class="text-text-secondary hover:text-text transition-colors text-sm tracking-wide">Precios</a>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="/" class={`transition ${active === 'inicio' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Inicio</a>
+          <a href="/como-funciona" class={`transition hidden sm:block ${active === 'como-funciona' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Cómo funciona</a>
+          <a href="/sectores" class={`transition hidden sm:block ${active === 'sectores' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Sectores</a>
+          <a href="/precios" class={`transition hidden sm:block ${active === 'precios' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Precios</a>
+          <a href="#chat" class="bg-accent text-bg px-4 py-2 rounded-lg font-medium text-sm hover:brightness-110 transition">Probar ahora</a>
         </div>
-        <a href="https://wa.me/34681072103" target="_blank" class="bg-accent hover:bg-accent-hover text-bg px-5 py-2 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105">
-          Hablar con nosotros
-        </a>
-        <!-- Mobile menu button -->
-        <button id="mobile-menu-btn" class="md:hidden text-text-secondary hover:text-text" aria-label="Menú">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
+        <button id="mobile-menu-btn" class="sm:hidden text-muted" aria-label="Menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
       </div>
-      <!-- Mobile menu -->
-      <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-bg/95 backdrop-blur-xl">
+      <div id="mobile-menu" class="hidden sm:hidden border-t border-border backdrop-blur-xl" style="background:rgba(15,14,12,0.95)">
         <div class="px-6 py-4 flex flex-col gap-4">
-          <a href="/como-funciona" class="text-text-secondary hover:text-text transition-colors text-sm">Cómo Funciona</a>
-          <a href="/sectores" class="text-text-secondary hover:text-text transition-colors text-sm">Sectores</a>
-          <a href="/precios" class="text-text-secondary hover:text-text transition-colors text-sm">Precios</a>
+          <a href="/" class="text-muted hover:text-text transition">Inicio</a>
+          <a href="/como-funciona" class="text-muted hover:text-text transition">Cómo funciona</a>
+          <a href="/sectores" class="text-muted hover:text-text transition">Sectores</a>
+          <a href="/precios" class="text-muted hover:text-text transition">Precios</a>
         </div>
       </div>
     </nav>
 
-    <main class="pt-16">
-      <slot />
-    </main>
+    <slot />
 
-    <footer class="border-t border-border mt-32">
-      <div class="max-w-7xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div class="md:col-span-2">
-            <h3 class="font-display text-2xl font-bold mb-4">Genera<span class="text-accent">IA</span></h3>
-            <p class="text-text-secondary max-w-md leading-relaxed">
-              Asistentes inteligentes por WhatsApp que transforman la atención al cliente de tu negocio. Automatización que se siente humana.
-            </p>
+    <!-- FOOTER -->
+    <footer class="border-t border-border py-12 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="logo-mark"></div>
+              <span class="font-bold text-lg" style="font-family:var(--font-display)">Genera<span style="color:var(--accent)">IA</span></span>
+            </div>
+            <p class="text-muted text-sm leading-relaxed">Asistentes de WhatsApp con IA que atienden a tus clientes 24/7. Automatización que se siente humana.</p>
           </div>
           <div>
-            <h4 class="font-display text-sm font-semibold uppercase tracking-wider text-text-secondary mb-4">Navegación</h4>
-            <ul class="space-y-3">
-              <li><a href="/como-funciona" class="text-text-tertiary hover:text-text transition-colors text-sm">Cómo Funciona</a></li>
-              <li><a href="/sectores" class="text-text-tertiary hover:text-text transition-colors text-sm">Sectores</a></li>
-              <li><a href="/precios" class="text-text-tertiary hover:text-text transition-colors text-sm">Precios</a></li>
+            <h4 class="text-text font-semibold mb-3 text-sm uppercase tracking-wider">Navegación</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/como-funciona" class="text-muted hover:text-accent transition">Cómo funciona</a></li>
+              <li><a href="/sectores" class="text-muted hover:text-accent transition">Sectores</a></li>
+              <li><a href="/precios" class="text-muted hover:text-accent transition">Precios</a></li>
             </ul>
           </div>
           <div>
-            <h4 class="font-display text-sm font-semibold uppercase tracking-wider text-text-secondary mb-4">Contacto</h4>
-            <ul class="space-y-3">
-              <li><a href="https://wa.me/34681072103" target="_blank" class="text-text-tertiary hover:text-accent transition-colors text-sm">WhatsApp</a></li>
-              <li><a href="mailto:generaia@proton.me" class="text-text-tertiary hover:text-text transition-colors text-sm">generaia@proton.me</a></li>
+            <h4 class="text-text font-semibold mb-3 text-sm uppercase tracking-wider">Contacto</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="mailto:generaia@proton.me" class="text-muted hover:text-accent transition">generaia@proton.me</a></li>
+              <li><a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="text-muted hover:text-accent transition">WhatsApp: +34 681 072 103</a></li>
             </ul>
           </div>
         </div>
-        <div class="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="text-text-tertiary text-xs">&copy; 2026 GeneraIA. Todos los derechos reservados.</p>
-          <p class="text-text-tertiary text-xs">Hecho con IA en España 🇪🇸</p>
+        <div class="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-muted">
+          <p>© 2026 GeneraIA. Hecho con IA en España 🇪🇸</p>
         </div>
       </div>
     </footer>
 
     <script>
-      // Mobile menu toggle
-      const btn = document.getElementById('mobile-menu-btn');
-      const menu = document.getElementById('mobile-menu');
-      btn?.addEventListener('click', () => {
-        menu?.classList.toggle('hidden');
-      });
-
-      // Lenis smooth scroll
-      import('lenis').then(({ default: Lenis }) => {
-        const lenis = new Lenis({
-          lerp: 0.1,
-          smoothWheel: true,
-        });
-
-        function raf(time: number) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Expose lenis for GSAP ScrollTrigger
-        (window as any).__lenis = lenis;
-      });
-
-      // Page load animation
-      document.querySelectorAll('[data-animate]').forEach((el, i) => {
-        (el as HTMLElement).style.opacity = '0';
-        (el as HTMLElement).style.transform = 'translateY(30px)';
-        
-        setTimeout(() => {
-          (el as HTMLElement).style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
-          (el as HTMLElement).style.opacity = '1';
-          (el as HTMLElement).style.transform = 'translateY(0)';
-        }, 150 + i * 80);
+      document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu')?.classList.toggle('hidden');
       });
     </script>
+
+    <style is:global>
+      .logo-mark {
+        width: 28px; height: 28px; border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #f59e0b 30%, #b45309 70%, #78350f 100%);
+        position: relative;
+        box-shadow: 0 0 12px rgba(245,158,11,0.3);
+      }
+      .logo-mark::after {
+        content: 'G';
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+        color: #0f0e0c; font-weight: 700; font-size: 14px;
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .pulse-ring {
+        position: absolute; inset: -4px; border-radius: 50%;
+        border: 2px solid rgba(245,158,11,0.4);
+        animation: pulse-ring 2s ease-out infinite;
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.9); opacity: 1; }
+        100% { transform: scale(1.4); opacity: 0; }
+      }
+    </style>
   </body>
 </html>

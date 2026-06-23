@@ -1,83 +1,82 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════
-   GENERAIA — Design System Tokens
-   "Warm Tech" — Dark base + Amber/Gold accent
-   ═══════════════════════════════════════════ */
-
 @theme {
-  /* Colors */
-  --color-bg: #0a0a0a;
-  --color-bg-elevated: #141414;
-  --color-surface: #1a1a1a;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.15);
-  --color-text: #fafaf9;
-  --color-text-secondary: rgba(250, 250, 249, 0.6);
-  --color-text-tertiary: rgba(250, 250, 249, 0.4);
-  --color-accent: #F59E0B;
-  --color-accent-hover: #D97706;
-  --color-accent-dim: rgba(245, 158, 11, 0.15);
-  
-  /* Fonts */
+  --color-bg: #0f0e0c;
+  --color-card: #1a1916;
+  --color-border: #2a2924;
+  --color-accent: #f59e0b;
+  --color-text: #e5e5e5;
+  --color-muted: #888888;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', 'SF Mono', monospace;
 }
 
-/* Base */
-html {
-  scroll-behavior: auto; /* Lenis handles smooth scroll */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+  ::selection {
+    background: rgba(245, 158, 11, 0.3);
+    color: #f7f8f8;
+  }
 }
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer components {
+  .glass {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .glass-hover:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(245,158,11,0.3);
+  }
 }
 
-/* Selection */
-::selection {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+  }
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  .animate-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--color-accent);
+    width: 0;
+    animation: typewriter 1.5s steps(40) forwards, blink 0.8s step-end infinite;
+  }
+  .chat-msg {
+    opacity: 1;
+  }
+  .chat-msg:nth-child(1) { animation: fadeIn 0.5s ease-out 0.2s both; }
+  .chat-msg:nth-child(2) { animation: fadeIn 0.5s ease-out 0.8s both; }
+  .chat-msg:nth-child(3) { animation: fadeIn 0.5s ease-out 1.4s both; }
+  .chat-msg:nth-child(4) { animation: fadeIn 0.5s ease-out 2.0s both; }
+  .chat-msg:nth-child(5) { animation: fadeIn 0.5s ease-out 2.6s both; }
+  .chat-msg:nth-child(6) { animation: fadeIn 0.5s ease-out 3.2s both; }
+  .chat-msg:nth-child(7) { animation: fadeIn 0.5s ease-out 3.8s both; }
 }
 
-/* Typography */
-h1, h2, h3, h4 {
-  font-family: var(--font-display);
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-
-/* Smooth scroll container for Lenis */
-html.lenis, html.lenis body {
-  height: auto;
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
+@keyframes typewriter {
+  to { width: 100%; }
 }
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-bg);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-border-hover);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-tertiary);
+@keyframes blink {
+  50% { border-color: transparent; }
 }
