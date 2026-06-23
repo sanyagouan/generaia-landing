@@ -1,13 +1,13 @@
 ---
-import "tailwindcss";
 import "../styles/global.css";
 
 export interface Props {
   title?: string;
   description?: string;
+  active?: string;
 }
 
-const { title = "GeneraIA — Tu negocio atiende solo, tú descansas", description = "Configuro un asistente de WhatsApp con IA para tu negocio en menos de 48 horas. Responde clientes, captura leads y agenda citas — sin que tú hagas nada." } = Astro.props;
+const { title = "GeneraIA — Tu negocio atiende solo, tú descansas", description = "Asistente de WhatsApp con IA para tu negocio. Responde clientes, captura leads y agenda citas 24/7. Pruébalo gratis 30 días.", active = "inicio" } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,6 +28,97 @@ const { title = "GeneraIA — Tu negocio atiende solo, tú descansas", descripti
     <title>{title}</title>
   </head>
   <body>
+    <!-- NAV -->
+    <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur-md border-b border-border/50" style="background:rgba(15,14,12,0.85)">
+      <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <div class="logo-mark"></div>
+          <span class="text-lg font-bold tracking-tight" style="font-family:var(--font-display)">Genera<span style="color:var(--accent)">IA</span></span>
+        </a>
+        <div class="flex items-center gap-6 text-sm">
+          <a href="/" class={`transition ${active === 'inicio' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Inicio</a>
+          <a href="/como-funciona" class={`transition hidden sm:block ${active === 'como-funciona' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Cómo funciona</a>
+          <a href="/sectores" class={`transition hidden sm:block ${active === 'sectores' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Sectores</a>
+          <a href="/precios" class={`transition hidden sm:block ${active === 'precios' ? 'text-accent font-medium' : 'text-muted hover:text-text'}`}>Precios</a>
+          <a href="#chat" class="bg-accent text-bg px-4 py-2 rounded-lg font-medium text-sm hover:brightness-110 transition">Probar ahora</a>
+        </div>
+        <button id="mobile-menu-btn" class="sm:hidden text-muted" aria-label="Menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="mobile-menu" class="hidden sm:hidden border-t border-border backdrop-blur-xl" style="background:rgba(15,14,12,0.95)">
+        <div class="px-6 py-4 flex flex-col gap-4">
+          <a href="/" class="text-muted hover:text-text transition">Inicio</a>
+          <a href="/como-funciona" class="text-muted hover:text-text transition">Cómo funciona</a>
+          <a href="/sectores" class="text-muted hover:text-text transition">Sectores</a>
+          <a href="/precios" class="text-muted hover:text-text transition">Precios</a>
+        </div>
+      </div>
+    </nav>
+
     <slot />
+
+    <!-- FOOTER -->
+    <footer class="border-t border-border py-12 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="logo-mark"></div>
+              <span class="font-bold text-lg" style="font-family:var(--font-display)">Genera<span style="color:var(--accent)">IA</span></span>
+            </div>
+            <p class="text-muted text-sm leading-relaxed">Asistentes de WhatsApp con IA que atienden a tus clientes 24/7. Automatización que se siente humana.</p>
+          </div>
+          <div>
+            <h4 class="text-text font-semibold mb-3 text-sm uppercase tracking-wider">Navegación</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="/como-funciona" class="text-muted hover:text-accent transition">Cómo funciona</a></li>
+              <li><a href="/sectores" class="text-muted hover:text-accent transition">Sectores</a></li>
+              <li><a href="/precios" class="text-muted hover:text-accent transition">Precios</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-text font-semibold mb-3 text-sm uppercase tracking-wider">Contacto</h4>
+            <ul class="space-y-2 text-sm">
+              <li><a href="mailto:hola@generaia.org" class="text-muted hover:text-accent transition">hola@generaia.org</a></li>
+              <li><a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="text-muted hover:text-accent transition">WhatsApp: +34 681 072 103</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-border pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-muted">
+          <p>© 2026 GeneraIA. Hecho con IA en España 🇪🇸</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+        document.getElementById('mobile-menu')?.classList.toggle('hidden');
+      });
+    </script>
+
+    <style is:global>
+      .logo-mark {
+        width: 28px; height: 28px; border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #f59e0b 30%, #b45309 70%, #78350f 100%);
+        position: relative;
+        box-shadow: 0 0 12px rgba(245,158,11,0.3);
+      }
+      .logo-mark::after {
+        content: 'G';
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+        color: #0f0e0c; font-weight: 700; font-size: 14px;
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .pulse-ring {
+        position: absolute; inset: -4px; border-radius: 50%;
+        border: 2px solid rgba(245,158,11,0.4);
+        animation: pulse-ring 2s ease-out infinite;
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.9); opacity: 1; }
+        100% { transform: scale(1.4); opacity: 0; }
+      }
+    </style>
   </body>
 </html>
