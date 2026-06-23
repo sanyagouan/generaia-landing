@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Precios — GeneraIA" description="149€/mes. Sin permanencia. Sin setup. 30 días gratis sin compromiso ni tarjeta. Precios claros para tu asistente de WhatsApp con IA.">
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-bg/80 backdrop-blur-md border-b border-border/50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="12" stroke="#f59e0b" stroke-width="2" fill="none"/>
+          <text x="16" y="22" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Space Grotesk, sans-serif">G</text>
+          <path d="M28 8 Q32 4 28 0" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.7"/>
+        </svg>
+        <span class="text-lg font-bold tracking-tight font-display">Genera<span class="text-accent">IA</span></span>
+      </a>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="/" class="text-muted hover:text-text transition">Inicio</a>
+        <a href="/como-funciona" class="text-muted hover:text-text transition hidden sm:block">Cómo funciona</a>
+        <a href="/sectores" class="text-muted hover:text-text transition hidden sm:block">Sectores</a>
+        <a href="/precios" class="text-accent font-medium">Precios</a>
+        <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20GeneraIA" target="_blank" rel="noopener" class="bg-accent text-bg px-4 py-2 rounded-lg font-medium text-sm hover:brightness-110 transition">Pruébalo gratis</a>
+      </div>
+      <button id="mobile-menu-btn" class="sm:hidden text-muted hover:text-text" aria-label="Menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden sm:hidden border-t border-border bg-bg/95 backdrop-blur-xl">
+      <div class="px-6 py-4 flex flex-col gap-4">
+        <a href="/" class="text-muted hover:text-text transition">Inicio</a>
+        <a href="/como-funciona" class="text-muted hover:text-text transition">Cómo funciona</a>
+        <a href="/sectores" class="text-muted hover:text-text transition">Sectores</a>
+        <a href="/precios" class="text-accent font-medium">Precios</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-28 pb-16 px-6 max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Un precio. Sin sorpresas.</h1>
+    <p class="text-lg text-muted text-center mb-16 max-w-xl mx-auto">149€/mes. Sin permanencia, sin setup, sin costes ocultos. Y 30 días gratis para que lo pruebes sin arriesgar nada.</p>
+
+    <!-- Pricing card -->
+    <div class="max-w-lg mx-auto">
+      <div class="bg-card border-2 border-accent/40 rounded-2xl p-10 relative">
+        <div class="absolute -top-3 left-8 bg-accent text-bg text-xs font-bold px-4 py-1 rounded-full">MÁS POPULAR</div>
+        <h2 class="text-xl font-bold mb-6">Plan Único</h2>
+        <div class="mb-8">
+          <p class="text-5xl font-bold"><span class="text-accent">149€</span><span class="text-muted text-xl font-normal">/mes</span></p>
+          <p class="text-sm text-muted mt-2">Sin permanencia. Cancela cuando quieras.</p>
+        </div>
+
+        <ul class="space-y-4 mb-10">
+          <li class="flex gap-3"><span class="text-green-500 mt-0.5">✓</span><div><p class="text-text">Asistente IA en tu WhatsApp</p><p class="text-xs text-muted">Configuración personalizada para tu negocio</p></div></li>
+          <li class="flex gap-3"><span class="text-green-500 mt-0.5">✓</span><div><p class="text-text">Captura automática de leads</p><p class="text-xs text-muted">Nombre, teléfono y datos relevantes de cada cliente</p></div></li>
+          <li class="flex gap-3"><span class="text-green-500 mt-0.5">✓</span><div><p class="text-text">Panel de control CRM</p><p class="text-xs text-muted">Todos tus leads en un dashboard en tiempo real</p></div></li>
+          <li class="flex gap-3"><span class="text-green-500 mt-0.5">✓</span><div><p class="text-text">Atención 24/7 los 365 días</p><p class="text-xs text-muted">Sin límite de conversaciones</p></div></li>
+          <li class="flex gap-3"><span class="text-green-500 mt-0.5">✓</span><div><p class="text-text">Soporte directo por WhatsApp</p><p class="text-xs text-muted">Respondo yo mismo en minutos</p></div></li>
+          <li class="flex gap-3"><span class="text-green-500 mt-0.5">✓</span><div><p class="text-text">Actualizaciones y mejoras continuas</p><p class="text-xs text-muted">Sin coste adicional</p></div></li>
+        </ul>
+
+        <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20empezar%20los%2030%20d%C3%ADas%20gratis" target="_blank" rel="noopener" class="block w-full bg-accent text-bg text-center py-4 rounded-xl font-bold text-lg hover:brightness-110 transition shadow-lg shadow-accent/20">
+          Empezar 30 días gratis →
+        </a>
+        <p class="text-xs text-muted text-center mt-3">Sin tarjeta. Sin compromiso. Sin permanencia.</p>
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <div class="mt-16">
+      <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <div class="bg-bg border border-border rounded-2xl p-8 opacity-70">
+          <h3 class="text-lg font-bold text-muted mb-6">Sin GeneraIA</h3>
+          <ul class="space-y-4">
+            <li class="flex gap-3 text-sm"><span class="text-red-500/60 mt-0.5">✕</span><div><p class="text-muted">Contratar personal</p><p class="text-[#666] text-xs">desde 1.200€/mes</p></div></li>
+            <li class="flex gap-3 text-sm"><span class="text-red-500/60 mt-0.5">✕</span><div><p class="text-muted">Perder clientes fuera de horario</p><p class="text-[#666] text-xs">cada llamada perdida es un cliente que se va</p></div></li>
+            <li class="flex gap-3 text-sm"><span class="text-red-500/60 mt-0.5">✕</span><div><p class="text-muted">Responder siempre lo mismo</p><p class="text-[#666] text-xs">tu tiempo vale más que eso</p></div></li>
+          </ul>
+        </div>
+        <div class="bg-bg border-2 border-accent/40 rounded-2xl p-8">
+          <h3 class="text-lg font-bold mb-2">Con GeneraIA</h3>
+          <p class="text-3xl font-bold mb-6"><span class="text-accent">149€</span><span class="text-muted text-lg font-normal">/mes</span></p>
+          <ul class="space-y-4">
+            <li class="flex gap-3 text-sm"><span class="text-green-500 mt-0.5">✓</span><p class="text-text">Atención 24/7 sin personal extra</p></li>
+            <li class="flex gap-3 text-sm"><span class="text-green-500 mt-0.5">✓</span><p class="text-text">Leads capturados automáticamente</p></li>
+            <li class="flex gap-3 text-sm"><span class="text-green-500 mt-0.5">✓</span><p class="text-text">Tu tiempo libre para lo importante</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ simple -->
+    <div class="mt-20 max-w-2xl mx-auto">
+      <h3 class="text-2xl font-bold text-center mb-10">Preguntas frecuentes</h3>
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-bold mb-2">¿Necesito dar mi tarjeta para los 30 días gratis?</h4>
+          <p class="text-muted text-sm">No. Empiezas sin tarjeta, sin compromiso. Si a los 30 días no te convence, lo dejamos sin más.</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-2">¿Tengo que instalar algo?</h4>
+          <p class="text-muted text-sm">Nada. Tu asistente funciona en tu WhatsApp actual. No necesitas apps nuevas ni configuraciones técnicas.</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-2">¿Qué pasa si tengo más de un número de WhatsApp?</h4>
+          <p class="text-muted text-sm">El asistente se conecta a un número. Si necesitas más, lo vemos y ajustamos el plan.</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-2">¿Puedo cancelar cuando quiera?</h4>
+          <p class="text-muted text-sm">Sí. Sin penalización. Sin papeleo. Me dices por WhatsApp y lo paramos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-16">
+      <p class="text-muted mb-4">¿Tienes dudas o un caso particular?</p>
+      <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="inline-block bg-accent text-bg px-10 py-5 rounded-xl font-bold text-lg hover:brightness-110 transition shadow-lg shadow-accent/20">
+        Hablamos por WhatsApp →
+      </a>
+    </div>
+  </section>
+
+  <footer class="border-t border-border py-8 px-6">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
+      <div class="flex items-center gap-2">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="12" stroke="#f59e0b" stroke-width="2" fill="none"/>
+          <text x="16" y="22" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Space Grotesk, sans-serif">G</text>
+        </svg>
+        <span>GeneraIA — 2026</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="mailto:hola@generaia.org" class="hover:text-text transition">hola@generaia.org</a>
+        <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="hover:text-text transition">WhatsApp</a>
+        <a href="https://demo.generaia.org" target="_blank" rel="noopener" class="hover:text-text transition">Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+  </script>
+</Layout>

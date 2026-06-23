@@ -1,0 +1,141 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Cómo Funciona — GeneraIA" description="Configuro un asistente de WhatsApp con IA para tu negocio en menos de 48 horas. Te explico paso a paso cómo funciona.">
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-bg/80 backdrop-blur-md border-b border-border/50">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="12" stroke="#f59e0b" stroke-width="2" fill="none"/>
+          <text x="16" y="22" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Space Grotesk, sans-serif">G</text>
+          <path d="M28 8 Q32 4 28 0" stroke="#f59e0b" stroke-width="1.5" fill="none" opacity="0.7"/>
+        </svg>
+        <span class="text-lg font-bold tracking-tight font-display">Genera<span class="text-accent">IA</span></span>
+      </a>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="/" class="text-muted hover:text-text transition">Inicio</a>
+        <a href="/como-funciona" class="text-accent font-medium">Cómo funciona</a>
+        <a href="/sectores" class="text-muted hover:text-text transition hidden sm:block">Sectores</a>
+        <a href="/precios" class="text-muted hover:text-text transition hidden sm:block">Precios</a>
+        <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20GeneraIA" target="_blank" rel="noopener" class="bg-accent text-bg px-4 py-2 rounded-lg font-medium text-sm hover:brightness-110 transition">Pruébalo gratis</a>
+      </div>
+      <button id="mobile-menu-btn" class="sm:hidden text-muted hover:text-text" aria-label="Menú">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden sm:hidden border-t border-border bg-bg/95 backdrop-blur-xl">
+      <div class="px-6 py-4 flex flex-col gap-4">
+        <a href="/" class="text-muted hover:text-text transition">Inicio</a>
+        <a href="/como-funciona" class="text-accent font-medium">Cómo funciona</a>
+        <a href="/sectores" class="text-muted hover:text-text transition">Sectores</a>
+        <a href="/precios" class="text-muted hover:text-text transition">Precios</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-28 pb-16 px-6 max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-5xl font-bold text-center mb-4">Cómo funciona</h1>
+    <p class="text-lg text-muted text-center mb-16 max-w-xl mx-auto">No necesitas saber de tecnología. Yo hago todo el trabajo.</p>
+
+    <div class="space-y-16">
+      <!-- Paso 1 -->
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+          <span class="text-accent font-bold text-2xl">1</span>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-3">Cuéntame tu negocio</h2>
+          <p class="text-muted leading-relaxed mb-4">Hablamos 15 minutos por WhatsApp o llamada. Me explicas:</p>
+          <ul class="space-y-2 text-muted">
+            <li class="flex gap-3"><span class="text-accent">→</span> Qué tipo de negocio tienes y a qué te dedicas</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Las preguntas que más te hacen los clientes (precios, horarios, disponibilidad)</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Qué te gustaría automatizar y qué quieres gestionar tú personalmente</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> El tono y estilo con el que quieres que hablen a tus clientes</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+          <span class="text-accent font-bold text-2xl">2</span>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-3">Configuro tu asistente</h2>
+          <p class="text-muted leading-relaxed mb-4">En 48 horas tengo listo tu asistente personalizado:</p>
+          <ul class="space-y-2 text-muted">
+            <li class="flex gap-3"><span class="text-accent">→</span> Entreno la IA con toda la información de tu negocio</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Configuro el tono de voz para que suene como tú</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Defino los flujos: captura de datos, respuestas automáticas, derivación a humano</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Activo el panel de control para que veas todos los leads en tiempo real</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+          <span class="text-accent font-bold text-2xl">3</span>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-3">Tu WhatsApp atiende solo</h2>
+          <p class="text-muted leading-relaxed mb-4">Desde el día 3, todo funciona automáticamente:</p>
+          <ul class="space-y-2 text-muted">
+            <li class="flex gap-3"><span class="text-accent">→</span> Cada mensaje que llega a tu WhatsApp lo gestiona la IA</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Responde preguntas, captura datos, agenda citas</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Tú recibes notificaciones solo de los leads calificados</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Ves todos los datos en tu panel: demo.generaia.org</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+          <span class="text-accent font-bold text-2xl">4</span>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold mb-3">Cobras más, trabajas menos</h2>
+          <p class="text-muted leading-relaxed mb-4">El resultado final:</p>
+          <ul class="space-y-2 text-muted">
+            <li class="flex gap-3"><span class="text-accent">→</span> No pierdes clientes porque el WhatsApp responde al instante, 24/7</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Cada conversación termina con un lead capturado, no con un "luego te llamo"</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Tú solo hablas con quien ya quiere comprar</li>
+            <li class="flex gap-3"><span class="text-accent">→</span> Ahorras el sueldo de un empleado (desde 1.200€/mes) por 149€/mes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-16">
+      <a href="https://wa.me/34681072103?text=Hola%2C%20quiero%20empezar%20los%2030%20d%C3%ADas%20gratis" target="_blank" rel="noopener" class="inline-block bg-accent text-bg px-10 py-5 rounded-xl font-bold text-lg hover:brightness-110 transition shadow-lg shadow-accent/20">
+        Empezar los 30 días gratis →
+      </a>
+    </div>
+  </section>
+
+  <footer class="border-t border-border py-8 px-6">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted">
+      <div class="flex items-center gap-2">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="12" stroke="#f59e0b" stroke-width="2" fill="none"/>
+          <text x="16" y="22" text-anchor="middle" fill="#f59e0b" font-size="18" font-weight="700" font-family="Space Grotesk, sans-serif">G</text>
+        </svg>
+        <span>GeneraIA — 2026</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="mailto:hola@generaia.org" class="hover:text-text transition">hola@generaia.org</a>
+        <a href="https://wa.me/34681072103" target="_blank" rel="noopener" class="hover:text-text transition">WhatsApp</a>
+        <a href="https://demo.generaia.org" target="_blank" rel="noopener" class="hover:text-text transition">Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+  </script>
+</Layout>
